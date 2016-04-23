@@ -13,6 +13,7 @@ class GameScene: SKScene {
     var score = 0
     let myLabel = SKLabelNode(fontNamed:"Chalkduster")
     let sprite = SKSpriteNode(imageNamed:"Picture2")
+    var timer =  NSTimer()
     
     
     
@@ -28,15 +29,28 @@ class GameScene: SKScene {
         self.addChild(myLabel)
         
         //create sprite
-        
         sprite.xScale = 0.5
         sprite.yScale = 0.5
-        sprite.position = CGPointMake(1, 1)
         sprite.name = "sprite"
         self.addChild(sprite)
+        sprite.position = CGPointMake(100,100)
         
+        
+        //timer function
+        scheduledTimerWithTimeInterval()
+//        var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("moveToRandomPosition"), userInfo: nil, repeats: true)
+        
+        
+
     }
     
+    func scheduledTimerWithTimeInterval(){
+        // Scheduling timer to Call the function **Countdown** with the interval of 1 seconds
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.moveToRandomPosition), userInfo: nil, repeats: true)
+        
+        
+    }
+
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
@@ -51,17 +65,16 @@ class GameScene: SKScene {
                     score += 1
                     
                     print("hit")
-                    print(score)
+                    print ("score: \(score)")
                     myLabel.text = "Score: \(score)"
                 }
             }
             
             else{
-                score -= 1
+               // score -= 1
                 myLabel.text = "Score: \(score)"
             }
-            moveToRandomPosition(sprite)
-            
+            sprite.position = getRandomPosition()
         
             
         
@@ -69,15 +82,42 @@ class GameScene: SKScene {
         }
     }
     
-    func moveToRandomPosition(sprite:SKSpriteNode){
-        // x coordinate between MinX (left) and MaxX (right):
-        let randomX = randomInRange(Int(CGRectGetMinX(self.frame)), hi: Int(CGRectGetMaxX(self.frame)))
-        // y coordinate between MinY (top) and MidY (middle):
-        let randomY = randomInRange(Int(CGRectGetMinY(self.frame)), hi: Int(CGRectGetMidY(self.frame)))
-        let randomSpot = CGPoint(x: randomX, y: randomY)
+//    func getRandomPosition() -> CGPoint{
+//        // x coordinate between MinX (left) and MaxX (right):
+//        let randomX = randomInRange(Int(CGRectGetMinX(self.frame)), hi: Int(CGRectGetMidX(self.frame)) + Int(M_PI / 2) - 100)
+//        // y coordinate between MinY (top) and MidY (middle):
+//        let randomY = randomInRange(Int(CGRectGetMinY(self.frame)), hi: Int(CGRectGetMidY(self.frame)) + Int(M_PI / 2) - 100)
+//
+//        let aPosition = CGPoint(x: randomX, y: randomY)
+//        
+//        return aPosition
+//    }
+    
+    func getRandomPosition() -> CGPoint {
+        let height = self.view!.frame.height
+        let width = self.view!.frame.width
+        
+        let randomPosition = CGPointMake(CGFloat(arc4random()) % height, CGFloat(arc4random()) % width)
+        
+        //let sprite = SKSpriteNode()
+        return  randomPosition
+    }
+    
+    func moveToRandomPosition() {
+       
+     
+            let aPosition = getRandomPosition()
+            sprite.position = aPosition
+            let number = self["sprite"].count
+            print("position: \(sprite.position) \(number) ")
         
         
-        self.sprite.position = randomSpot
+       
+        
+        
+        
+        //moves sprite to random position 
+       // self.sprite.position = randomSpot
         
         
     }
@@ -95,6 +135,7 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
         
        // print(score)
+       
         
         
     }
