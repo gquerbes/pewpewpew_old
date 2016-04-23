@@ -16,6 +16,7 @@
 		746E7F1B1CCBB5D100F50CDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 746E7F191CCBB5D100F50CDB /* LaunchScreen.storyboard */; };
 		749979A41CCBFEE6003A8881 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 749979A21CCBFEE6003A8881 /* MyParticle.sks */; };
 		749979A51CCBFEE6003A8881 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 749979A31CCBFEE6003A8881 /* spark.png */; };
+		749979AD1CCC3205003A8881 /* pewpewpew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 749979AC1CCC3205003A8881 /* pewpewpew.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		746E7F1C1CCBB5D100F50CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		749979A21CCBFEE6003A8881 /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		749979A31CCBFEE6003A8881 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		749979AC1CCC3205003A8881 /* pewpewpew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pewpewpew.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				746E7F141CCBB5D100F50CDB /* Main.storyboard */,
 				749979A31CCBFEE6003A8881 /* spark.png */,
 				746E7F171CCBB5D100F50CDB /* Assets.xcassets */,
+				749979AC1CCC3205003A8881 /* pewpewpew.wav */,
 				746E7F191CCBB5D100F50CDB /* LaunchScreen.storyboard */,
 				746E7F1C1CCBB5D100F50CDB /* Info.plist */,
 			);
@@ -139,6 +142,7 @@
 				749979A51CCBFEE6003A8881 /* spark.png in Resources */,
 				746E7F1B1CCBB5D100F50CDB /* LaunchScreen.storyboard in Resources */,
 				746E7F181CCBB5D100F50CDB /* Assets.xcassets in Resources */,
+				749979AD1CCC3205003A8881 /* pewpewpew.wav in Resources */,
 				746E7F161CCBB5D100F50CDB /* Main.storyboard in Resources */,
 				749979A41CCBFEE6003A8881 /* MyParticle.sks in Resources */,
 			);

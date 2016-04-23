@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import AVFoundation
 
 class GameScene: SKScene {
     //let dot = SKSpriteNode()
@@ -14,18 +15,24 @@ class GameScene: SKScene {
     let myLabel = SKLabelNode(fontNamed:"Chalkduster")
     var sprite = SKSpriteNode(imageNamed:"fax")
     var timer =  NSTimer()
+    var timer2 =  NSTimer()
     var sparkParticle = SKEmitterNode()
     
-    
+    //sounds
+    var sound: AVAudioPlayer!
     
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
+        //sound 
+       
         
+       
         
         //score label
         myLabel.text = "Score: \(score)"
         myLabel.fontSize = 45
+        myLabel.zPosition = 0
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         
         self.addChild(myLabel)
@@ -34,6 +41,7 @@ class GameScene: SKScene {
         sprite.xScale = 0.5
         sprite.yScale = 0.5
         sprite.name = "sprite"
+        sprite.zPosition = 1
         self.addChild(sprite)
         sprite.position = CGPointMake(100,100)
         
@@ -46,6 +54,20 @@ class GameScene: SKScene {
 
     }
     
+    func playPewPew(){
+        sound = try? AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("pewpewpew", ofType:"wav")!))
+        sound.play()
+    }
+    
+    func changeWallpaper(hit: Bool){
+        if(hit){
+            self.backgroundColor = UIColor.greenColor()
+
+        }else{
+            self.backgroundColor = UIColor.redColor()
+        }
+    }
+    
     func changeSprite(){
         let images = ["clouds","mail","pen","Spaceship","building","fax"]
         let randomNumber = Int(arc4random_uniform(UInt32(images.count)))
@@ -56,14 +78,22 @@ class GameScene: SKScene {
     
     func scheduledTimerWithTimeInterval(){
         // Scheduling timer to Call the function **Countdown** with the interval of 1 seconds
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.moveToRandomPosition), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.moveToRandomPosition), userInfo: nil, repeats: true)
         
+        timer2 = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.removeSprites), userInfo: nil, repeats: true)
         
     }
     
-
+    
+    func removeSprites(){
+        sparkParticle.removeFromParent()
+        
+    }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
+        var hit = true
+        
+        
         //particle
         let path = NSBundle.mainBundle().pathForResource("MyParticle", ofType: "sks")
         sparkParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
@@ -72,34 +102,36 @@ class GameScene: SKScene {
         for touch: AnyObject in touches {
             
             let location = (touch as! UITouch).locationInNode(self)
+            
             if let theName = self.nodeAtPoint(location).name {
                 if theName == "sprite" {
                     
                     score += 1
                     
+                    hit = true
                     print("hit")
                     print ("score: \(score)")
                     myLabel.text = "Score: \(score)"
-                    changeSprite()
-                    sprite.position = getRandomPosition()
-                    sparkParticle.position = sprite.position
+                    sparkParticle.position = myLabel.position
                     sparkParticle.name = "sparkParticle"
                     sparkParticle.targetNode = self.scene
+                    
                     self.addChild(sparkParticle)
                     
+                    playPewPew()
                     
+                    //sprite.position = getRandomPosition()
                 }
             }
             
             else{
+                hit = false
                 score -= 1
                 myLabel.text = "Score: \(score)"
                 
+                
             }
-            
-        
-            
-        
+            changeWallpaper(hit)
             
         }
     }
@@ -110,6 +142,7 @@ class GameScene: SKScene {
         
         // x coordinate between MinX (left) and MaxX (right):
         let randomX = randomInRange(Int(CGRectGetMinX(self.frame)), hi: Int(CGRectGetMaxX(self.frame)) - 25)
+        
         // y coordinate between MinY (top) and MidY (middle):
         let randomY = randomInRange(Int(CGRectGetMinY(self.frame)), hi: Int(CGRectGetMaxY(self.frame)) - 25)
 
@@ -121,11 +154,14 @@ class GameScene: SKScene {
 
     
     func moveToRandomPosition() {
+            changeSprite()
             let aPosition = getRandomPosition()
             sprite.position = aPosition
             let number = self["sprite"].count
-            print("position: \(sprite.position) \(number) ")
-            sparkParticle.removeFromParent()
+        
+        
+            //print("position: \(sprite.position) \(number)")
+        
         
     }
    
@@ -136,6 +172,7 @@ class GameScene: SKScene {
     }
     
     override func update(currentTime: CFTimeInterval) {
+        //self.backgroundColor = UIColor.lightGrayColor()
         
     }
 }
