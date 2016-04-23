@@ -14,6 +14,7 @@
 		746E7F161CCBB5D100F50CDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 746E7F141CCBB5D100F50CDB /* Main.storyboard */; };
 		746E7F181CCBB5D100F50CDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 746E7F171CCBB5D100F50CDB /* Assets.xcassets */; };
 		746E7F1B1CCBB5D100F50CDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 746E7F191CCBB5D100F50CDB /* LaunchScreen.storyboard */; };
+		746E7F231CCBBD9800F50CDB /* Picture2.png in Resources */ = {isa = PBXBuildFile; fileRef = 746E7F221CCBBD9800F50CDB /* Picture2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		746E7F171CCBB5D100F50CDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		746E7F1A1CCBB5D100F50CDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		746E7F1C1CCBB5D100F50CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		746E7F221CCBBD9800F50CDB /* Picture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Picture2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				746E7F121CCBB5D100F50CDB /* GameViewController.swift */,
 				746E7F141CCBB5D100F50CDB /* Main.storyboard */,
 				746E7F171CCBB5D100F50CDB /* Assets.xcassets */,
+				746E7F221CCBBD9800F50CDB /* Picture2.png */,
 				746E7F191CCBB5D100F50CDB /* LaunchScreen.storyboard */,
 				746E7F1C1CCBB5D100F50CDB /* Info.plist */,
 			);
@@ -132,6 +135,7 @@
 				746E7F0F1CCBB5D100F50CDB /* GameScene.sks in Resources */,
 				746E7F1B1CCBB5D100F50CDB /* LaunchScreen.storyboard in Resources */,
 				746E7F181CCBB5D100F50CDB /* Assets.xcassets in Resources */,
+				746E7F231CCBBD9800F50CDB /* Picture2.png in Resources */,
 				746E7F161CCBB5D100F50CDB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

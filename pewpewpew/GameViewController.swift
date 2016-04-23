@@ -11,6 +11,7 @@ import SpriteKit
 
 class GameViewController: UIViewController {
 
+    @IBOutlet weak var lblScore: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
