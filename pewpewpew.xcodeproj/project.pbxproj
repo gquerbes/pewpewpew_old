@@ -14,7 +14,8 @@
 		746E7F161CCBB5D100F50CDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 746E7F141CCBB5D100F50CDB /* Main.storyboard */; };
 		746E7F181CCBB5D100F50CDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 746E7F171CCBB5D100F50CDB /* Assets.xcassets */; };
 		746E7F1B1CCBB5D100F50CDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 746E7F191CCBB5D100F50CDB /* LaunchScreen.storyboard */; };
-		746E7F231CCBBD9800F50CDB /* Picture2.png in Resources */ = {isa = PBXBuildFile; fileRef = 746E7F221CCBBD9800F50CDB /* Picture2.png */; };
+		749979A41CCBFEE6003A8881 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 749979A21CCBFEE6003A8881 /* MyParticle.sks */; };
+		749979A51CCBFEE6003A8881 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 749979A31CCBFEE6003A8881 /* spark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +28,8 @@
 		746E7F171CCBB5D100F50CDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		746E7F1A1CCBB5D100F50CDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		746E7F1C1CCBB5D100F50CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		746E7F221CCBBD9800F50CDB /* Picture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Picture2.png; sourceTree = "<group>"; };
+		749979A21CCBFEE6003A8881 /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
+		749979A31CCBFEE6003A8881 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,11 +64,12 @@
 			children = (
 				746E7F0C1CCBB5D100F50CDB /* AppDelegate.swift */,
 				746E7F0E1CCBB5D100F50CDB /* GameScene.sks */,
+				749979A21CCBFEE6003A8881 /* MyParticle.sks */,
 				746E7F101CCBB5D100F50CDB /* GameScene.swift */,
 				746E7F121CCBB5D100F50CDB /* GameViewController.swift */,
 				746E7F141CCBB5D100F50CDB /* Main.storyboard */,
+				749979A31CCBFEE6003A8881 /* spark.png */,
 				746E7F171CCBB5D100F50CDB /* Assets.xcassets */,
-				746E7F221CCBBD9800F50CDB /* Picture2.png */,
 				746E7F191CCBB5D100F50CDB /* LaunchScreen.storyboard */,
 				746E7F1C1CCBB5D100F50CDB /* Info.plist */,
 			);
@@ -133,10 +136,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				746E7F0F1CCBB5D100F50CDB /* GameScene.sks in Resources */,
+				749979A51CCBFEE6003A8881 /* spark.png in Resources */,
 				746E7F1B1CCBB5D100F50CDB /* LaunchScreen.storyboard in Resources */,
 				746E7F181CCBB5D100F50CDB /* Assets.xcassets in Resources */,
-				746E7F231CCBBD9800F50CDB /* Picture2.png in Resources */,
 				746E7F161CCBB5D100F50CDB /* Main.storyboard in Resources */,
+				749979A41CCBFEE6003A8881 /* MyParticle.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +303,7 @@
 				746E7F211CCBB5D100F50CDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
