@@ -6,6 +6,12 @@
 //  Copyright (c) 2016 Fourteen66. All rights reserved.
 //
 
+
+//TODO
+//PUT PARTICLE NODES IN ARRAY AND CLEAR IT TO SAVE MEMORY
+//BETTER COLOR CHANGING BACKGROUND
+//POSSIBLY MAKE A MISS DEDUCT 2 POINTS
+
 import SpriteKit
 import AVFoundation
 
@@ -24,12 +30,12 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
+        
         //score label
         myLabel.text = "Score: \(score)"
         myLabel.fontSize = 45
         myLabel.zPosition = 0
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame) / 6))
-        
+        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)  * 1.8))
         self.addChild(myLabel)
         
         //create sprite
@@ -44,8 +50,6 @@ class GameScene: SKScene {
         //timer function to move location
         moveSpriteTimer()
 //        var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("moveToRandomPosition"), userInfo: nil, repeats: true)
-        
-        
 
     }
     
@@ -54,16 +58,81 @@ class GameScene: SKScene {
         sound.play()
     }
     
-    func changeWallpaper(hit: Bool){
+    func getScoreColor() -> UIColor{
+        var red:CGFloat = 0
+        var green:CGFloat = 0
+        var blue:CGFloat = 0
+        let color = ColorStruct()
+        if (score == 0){
+            red = 206
+            green = 206
+            blue = 206
+        }
+        else if (score > 0){
+            red = 0
+            green = 100 + (CGFloat(score) * 10)
+            blue = 0
+        }
+        else{
+            red = 100 + (CGFloat(abs(score)) * 10)
+            green = 0
+            blue = 0
+        }
+        
+        var exactColor = color.getExactColor(red, g:green, b: blue)
+        
+        return exactColor
+    }
+    
+    func processTap(hit: Bool){
         if(hit){
-            self.backgroundColor = UIColor.greenColor()
-            //reset timer and restart moving
-            timer.invalidate()
-            timer = NSTimer()
-            moveSpriteTimer()
+            
+            //reset timer
+//            timer.invalidate()
+//            timer = NSTimer()
+            
+            // move sprite
+//            moveToRandomPosition()
+            
+            //increment and update score
+            score += 1
+            myLabel.text = "Score: \(score)"
+            
+            //update background color
+            self.backgroundColor = getScoreColor()
+            
+            //play particle
+            sparkParticle.position = myLabel.position
+            sparkParticle.name = "sparkParticle"
+            sparkParticle.targetNode = self.scene
+            self.addChild(sparkParticle)
+            
+            //play sound
+            playPewPew()
+            
+            
+            
+            //restart moving timer
+//            moveSpriteTimer()
+        
 
         }else{
-            self.backgroundColor = UIColor.redColor()
+            
+            //reset timer
+//            timer.invalidate()
+//            timer = NSTimer()
+            
+            // move sprite
+//            moveToRandomPosition()
+            
+            //decrement and update score
+            score -= 1
+            myLabel.text = "Score: \(score)"
+            
+            //update background color
+            self.backgroundColor = getScoreColor()
+            //restart moving timer
+//            moveSpriteTimer()
         }
        
     }
@@ -82,7 +151,8 @@ class GameScene: SKScene {
         // Scheduling timer to Call the function **Countdown** with the interval of 1 seconds
         timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.moveToRandomPosition), userInfo: nil, repeats: true)
         
-        timer2 = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.removeSprites), userInfo: nil, repeats: true)
+        //Removing to see how it affects the playing of particles
+      //  timer2 = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.removeSprites), userInfo: nil, repeats: true)
         
     }
     
@@ -104,36 +174,20 @@ class GameScene: SKScene {
         for touch: AnyObject in touches {
             
             let location = (touch as! UITouch).locationInNode(self)
-            
+            hit = false;
             if let theName = self.nodeAtPoint(location).name {
                 if theName == "sprite" {
-                    
-                    score += 1
-                    
                     hit = true
-                    print("hit")
-                    print ("score: \(score)")
-                    myLabel.text = "Score: \(score)"
-                    sparkParticle.position = myLabel.position
-                    sparkParticle.name = "sparkParticle"
-                    sparkParticle.targetNode = self.scene
-                    
-                    self.addChild(sparkParticle)
-                    
-                    playPewPew()
-                    
-                    //sprite.position = getRandomPosition()
+                    processTap(hit)
                 }
             }
             
             else{
-                hit = false
-                score -= 1
-                myLabel.text = "Score: \(score)"
-                
+                processTap(hit)
+ 
                 
             }
-            changeWallpaper(hit)
+            
             
         }
     }
@@ -161,7 +215,7 @@ class GameScene: SKScene {
             sprite.position = aPosition
            // let number = self["sprite"].count
             let colors = ColorStruct()
-            self.backgroundColor = colors.getRandomColor()
+            //self.backgroundColor = colors.colorArray[0]
         
             //print("position: \(sprite.position) \(number)")
         
