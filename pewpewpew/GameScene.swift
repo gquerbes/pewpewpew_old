@@ -13,7 +13,7 @@ class GameScene: SKScene {
     //let dot = SKSpriteNode()
     var score = 0
     let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-    var sprite = SKSpriteNode(imageNamed:"fax")
+    var sprite = SKSpriteNode(imageNamed:"object1")
     var timer =  NSTimer()
     var timer2 =  NSTimer()
     var sparkParticle = SKEmitterNode()
@@ -24,16 +24,11 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        //sound 
-       
-        
-       
-        
         //score label
         myLabel.text = "Score: \(score)"
         myLabel.fontSize = 45
         myLabel.zPosition = 0
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame) / 6))
         
         self.addChild(myLabel)
         
@@ -46,8 +41,8 @@ class GameScene: SKScene {
         sprite.position = CGPointMake(100,100)
         
         
-        //timer function
-        scheduledTimerWithTimeInterval()
+        //timer function to move location
+        moveSpriteTimer()
 //        var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("moveToRandomPosition"), userInfo: nil, repeats: true)
         
         
@@ -62,21 +57,28 @@ class GameScene: SKScene {
     func changeWallpaper(hit: Bool){
         if(hit){
             self.backgroundColor = UIColor.greenColor()
+            //reset timer and restart moving
+            timer.invalidate()
+            timer = NSTimer()
+            moveSpriteTimer()
 
         }else{
             self.backgroundColor = UIColor.redColor()
         }
+       
     }
     
     func changeSprite(){
-        let images = ["clouds","mail","pen","Spaceship","building","fax"]
+        let images = ["object1","object2","object3"]
         let randomNumber = Int(arc4random_uniform(UInt32(images.count)))
         sprite.texture = SKTexture(imageNamed: images[randomNumber])
         
         
     }
     
-    func scheduledTimerWithTimeInterval(){
+    
+    
+    func moveSpriteTimer(){
         // Scheduling timer to Call the function **Countdown** with the interval of 1 seconds
         timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.moveToRandomPosition), userInfo: nil, repeats: true)
         
@@ -157,8 +159,9 @@ class GameScene: SKScene {
             changeSprite()
             let aPosition = getRandomPosition()
             sprite.position = aPosition
-            let number = self["sprite"].count
-        
+           // let number = self["sprite"].count
+            let colors = ColorStruct()
+            self.backgroundColor = colors.getRandomColor()
         
             //print("position: \(sprite.position) \(number)")
         

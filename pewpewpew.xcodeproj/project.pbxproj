@@ -17,6 +17,7 @@
 		749979A41CCBFEE6003A8881 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 749979A21CCBFEE6003A8881 /* MyParticle.sks */; };
 		749979A51CCBFEE6003A8881 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 749979A31CCBFEE6003A8881 /* spark.png */; };
 		749979AD1CCC3205003A8881 /* pewpewpew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 749979AC1CCC3205003A8881 /* pewpewpew.wav */; };
+		74F64DE21CD302B900EDCC0F /* ColorStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F64DE11CD302B900EDCC0F /* ColorStruct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		749979A21CCBFEE6003A8881 /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		749979A31CCBFEE6003A8881 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		749979AC1CCC3205003A8881 /* pewpewpew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pewpewpew.wav; sourceTree = "<group>"; };
+		74F64DE11CD302B900EDCC0F /* ColorStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorStruct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				746E7F0C1CCBB5D100F50CDB /* AppDelegate.swift */,
 				746E7F0E1CCBB5D100F50CDB /* GameScene.sks */,
 				749979A21CCBFEE6003A8881 /* MyParticle.sks */,
+				74F64DE11CD302B900EDCC0F /* ColorStruct.swift */,
 				746E7F101CCBB5D100F50CDB /* GameScene.swift */,
 				746E7F121CCBB5D100F50CDB /* GameViewController.swift */,
 				746E7F141CCBB5D100F50CDB /* Main.storyboard */,
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74F64DE21CD302B900EDCC0F /* ColorStruct.swift in Sources */,
 				746E7F111CCBB5D100F50CDB /* GameScene.swift in Sources */,
 				746E7F131CCBB5D100F50CDB /* GameViewController.swift in Sources */,
 				746E7F0D1CCBB5D100F50CDB /* AppDelegate.swift in Sources */,
