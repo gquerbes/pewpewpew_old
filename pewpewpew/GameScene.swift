@@ -13,9 +13,9 @@
 
 import SpriteKit
 import AVFoundation
+import UIKit
 
 class GameScene: SKScene {
-    //let dot = SKSpriteNode()
     var score = 0
     var highScore = 0;
     let scoreLabel = SKLabelNode(fontNamed:"Chalkduster")
@@ -38,11 +38,19 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
-        if let highScore = userDefaults.valueForKey("highScore") {
+        callForWait()
+        
+//        //Clear high score
+//        userDefaults.setValue(0, forKey: "highScore")
+//        userDefaults.synchronize() // don't forget this!!!!
+        
+        
+        if let highScoreOnFile = userDefaults.valueForKey("highScore") {
             // do something here when a highscore exists
+            highScore = highScoreOnFile as! Int
         }
         else {
-            // no highscore exists
+            
         }
         
         
@@ -57,7 +65,7 @@ class GameScene: SKScene {
         highScoreLabel.text = "High Score: \(highScore)"
         highScoreLabel.fontSize = 20
         highScoreLabel.zPosition = 0
-        highScoreLabel.position = CGPoint(x:50, y: 50)
+        highScoreLabel.position = CGPoint(x:150, y: 50)
         self.addChild(highScoreLabel)
 
         
@@ -84,8 +92,9 @@ class GameScene: SKScene {
         //timer function to move location
         moveSpriteTimer()
 
-
     }
+    
+
     
     func playPewPew(){
         sound = try? AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("pewpewpew", ofType:"wav")!))
@@ -116,6 +125,30 @@ class GameScene: SKScene {
         var exactColor = color.getExactColor(red, g:green, b: blue)
         
         return exactColor
+    }
+    
+    func callForWait(){
+        //setting the delay time 60secs.
+        let delay = 10 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) {
+            //call the method which have the steps after delay.
+            self.stepsAfterDelay()
+        }
+    }
+    
+    func stepsAfterDelay(){
+        //your code after delay takes place here...
+        scoreLabel.text = "gameover"
+        
+        //return to main screen
+        let transition = SKTransition.revealWithDirection(.Down, duration: 1.0)
+        
+        let nextScene = LaunchScreen(size: scene!.size)
+        nextScene.scaleMode = .AspectFill
+        
+        scene?.view?.presentScene(nextScene, transition: transition)
+       
     }
     
     func processTap(hit: Bool){
@@ -163,6 +196,7 @@ class GameScene: SKScene {
     
     func moveSpriteTimer(){
         // Scheduling timer to Call the function **Countdown** with the interval of 1 seconds
+        // Increasing this interval will slow down the movement of targets
         timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.moveToRandomPosition), userInfo: nil, repeats: true)
     }
     
@@ -205,7 +239,8 @@ class GameScene: SKScene {
         highScore = score
         highScoreLabel.text = "New High Score: \(highScore)"
         
-        userDefaults.setValue(highScore, forKey: "highscore")
+        //write high score to memory
+        userDefaults.setValue(highScore, forKey: "highScore")
         userDefaults.synchronize() // don't forget this!!!!
     }
     
@@ -213,7 +248,6 @@ class GameScene: SKScene {
             changeSprite()
             let aPosition = getRandomPosition()
             sprite.position = aPosition
-            let colors = ColorStruct()
     }
    
 
@@ -226,4 +260,6 @@ class GameScene: SKScene {
         //self.backgroundColor = UIColor.lightGrayColor()
         
     }
+
+    
 }
