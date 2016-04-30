@@ -26,7 +26,7 @@ class GameScene: SKScene {
     var highScoreLabel = SKLabelNode(fontNamed: "Chalkduster")
     var sprite = SKSpriteNode(imageNamed:"object1")
     var timer =  NSTimer()
-    var timer2 =  NSTimer()
+    
     //particle
     var sparkParticle = SKEmitterNode()
     
@@ -38,21 +38,17 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
-        callForWait()
+        startGameTimer()
         
 //        //Clear high score
 //        userDefaults.setValue(0, forKey: "highScore")
-//        userDefaults.synchronize() // don't forget this!!!!
+//        userDefaults.synchronize()
         
-        
+        //Check if highscore is on file and set it on game
         if let highScoreOnFile = userDefaults.valueForKey("highScore") {
             // do something here when a highscore exists
             highScore = highScoreOnFile as! Int
         }
-        else {
-            
-        }
-        
         
         //score label
         scoreLabel.text = "Score: \(score)"
@@ -122,22 +118,22 @@ class GameScene: SKScene {
             blue = 0
         }
         
-        var exactColor = color.getExactColor(red, g:green, b: blue)
+        let exactColor = color.getExactColor(red, g:green, b: blue)
         
         return exactColor
     }
     
-    func callForWait(){
+    func startGameTimer(){
         //setting the delay time 60secs.
         let delay = 10 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         dispatch_after(time, dispatch_get_main_queue()) {
             //call the method which have the steps after delay.
-            self.stepsAfterDelay()
+            self.endOfGame()
         }
     }
     
-    func stepsAfterDelay(){
+    func endOfGame(){
         //your code after delay takes place here...
         scoreLabel.text = "gameover"
         

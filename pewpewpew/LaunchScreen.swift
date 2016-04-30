@@ -19,7 +19,7 @@ class LaunchScreen: SKScene {
         startLabel.name = "start"
         startLabel.fontSize = 45
         startLabel.zPosition = 0
-        startLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)  * 1.8))
+        startLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         self.addChild(startLabel)
     }
 

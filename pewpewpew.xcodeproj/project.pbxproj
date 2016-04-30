@@ -51,6 +51,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		74684A471CD5523300D9AE1E /* scenes */ = {
+			isa = PBXGroup;
+			children = (
+				746E7F0E1CCBB5D100F50CDB /* GameScene.sks */,
+				74684A401CD5474400D9AE1E /* LaunchScreen.sks */,
+			);
+			name = scenes;
+			sourceTree = "<group>";
+		};
+		74684A481CD5524C00D9AE1E /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				749979A21CCBFEE6003A8881 /* MyParticle.sks */,
+			);
+			name = Particles;
+			sourceTree = "<group>";
+		};
+		74684A491CD5526100D9AE1E /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				74684A451CD54AC700D9AE1E /* LaunchScreen.swift */,
+				746E7F101CCBB5D100F50CDB /* GameScene.swift */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
 		746E7F001CCBB5D100F50CDB = {
 			isa = PBXGroup;
 			children = (
@@ -71,13 +97,11 @@
 			isa = PBXGroup;
 			children = (
 				746E7F0C1CCBB5D100F50CDB /* AppDelegate.swift */,
-				746E7F0E1CCBB5D100F50CDB /* GameScene.sks */,
-				74684A401CD5474400D9AE1E /* LaunchScreen.sks */,
-				749979A21CCBFEE6003A8881 /* MyParticle.sks */,
-				74684A451CD54AC700D9AE1E /* LaunchScreen.swift */,
+				74684A471CD5523300D9AE1E /* scenes */,
+				74684A481CD5524C00D9AE1E /* Particles */,
+				74684A491CD5526100D9AE1E /* Scenes */,
 				74684A421CD547E500D9AE1E /* Main.storyboard */,
 				74F64DE11CD302B900EDCC0F /* ColorStruct.swift */,
-				746E7F101CCBB5D100F50CDB /* GameScene.swift */,
 				746E7F121CCBB5D100F50CDB /* GameViewController.swift */,
 				749979A31CCBFEE6003A8881 /* spark.png */,
 				746E7F171CCBB5D100F50CDB /* Assets.xcassets */,
