@@ -19,7 +19,6 @@ struct ColorStruct{
        
     ]
     
-    
     //function to get return one of the above generated colors
     func getRandomColor() ->UIColor{
         let randomNumber = Int(arc4random_uniform(UInt32(colorArray.count)))
