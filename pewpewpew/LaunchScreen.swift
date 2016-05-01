@@ -15,6 +15,7 @@ class LaunchScreen: SKScene {
     let startLabel = SKLabelNode(fontNamed:"Chalkduster")
     
     override func didMoveToView(view: SKView) {
+        ///set start label
         startLabel.text = "START!"
         startLabel.name = "start"
         startLabel.fontSize = 45

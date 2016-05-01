@@ -47,8 +47,7 @@ class GameScene: SKScene {
         ///start timer
         startGameTimer()
         
-        /*
-        //Clear high score from local storage
+        /*Clear high score from local storage
         userDefaults.setValue(0, forKey: "highScore")
         userDefaults.synchronize()
         */
@@ -80,7 +79,7 @@ class GameScene: SKScene {
         ///target sprite properties
         target.xScale = 0.5
         target.yScale = 0.5
-        target.name = "sprite"
+        target.name = "target"
         target.zPosition = 1
         ///add target to scene
         self.addChild(target)
@@ -115,6 +114,7 @@ class GameScene: SKScene {
     gets background color to match score
      
     - Returns: a color that matches the current game score
+     - TODO: adjust numbers to better match score
     */
     func getScoreColor() -> UIColor{
         ///declare number values for each RGB
@@ -244,66 +244,85 @@ class GameScene: SKScene {
         timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(GameScene.moveToRandomPosition), userInfo: nil, repeats: true)
     }
     
-    
+    /**
+     Called when touches begin
+     */
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-       /* Called when a touch begins */
-        var hit = true
+        ///user hit target
+        var hit = false
 
         for touch: AnyObject in touches {
-            
+            ///recognize location of the tap
             let location = (touch as! UITouch).locationInNode(self)
-            hit = false;
+            ///check if the object hit was named "target"
             if let theName = self.nodeAtPoint(location).name {
-                if theName == "sprite" {
+                if theName == "target" {
+                    ///set hit to true
                     hit = true
-                    processTap(hit)
                 }
             }
-            else{
-                processTap(hit)
-             
-            }
+            ///process the tap passing in T/F for if hit was made
+            processTap(hit)
         }
     }
     
+    /**
+     - Returns: random number within specific range
+    */
+    func randomInRange(lo: Int, hi : Int) -> Int {
+        return lo + Int(arc4random_uniform(UInt32(hi - lo + 1)))
+    }
+    
+    /**
+    get random position within visible scene
+     - Returns: random position within visible scene
+    */
     func getRandomPosition() -> CGPoint{
         
-        // x coordinate between MinX (left) and MaxX (right):
+        /// x coordinate between MinX (left) and MaxX (right):
         let randomX = randomInRange(Int(CGRectGetMinX(self.frame)), hi: Int(CGRectGetMaxX(self.frame)) - 25)
         
-        // y coordinate between MinY (top) and MidY (middle):
+        /// y coordinate between MinY (top) and MidY (middle):
         let randomY = randomInRange(Int(CGRectGetMinY(self.frame)), hi: Int(CGRectGetMaxY(self.frame)) - 25)
-
+        
+        ///create position from random variables
         let aPosition = CGPoint(x: randomX, y: randomY)
         
         return aPosition
     }
     
+    
+    /**
+     sets new high score
+    */
     func setNewHighScore(){
+        ///set current score to highschore
         highScore = score
+        ///update highscore label
         highScoreLabel.text = "New High Score: \(highScore)"
         
-        //write high score to memory
+        //write high score to local storage
         userDefaults.setValue(highScore, forKey: "highScore")
-        userDefaults.synchronize() // don't forget this!!!!
+        userDefaults.synchronize()
+        
     }
     
+    /**
+     moves object to random position
+    */
     func moveToRandomPosition() {
+            ///change the texture of target
             changeTarget()
+            ///move target to random position
             let aPosition = getRandomPosition()
             target.position = aPosition
     }
    
 
-    
-    func randomInRange(lo: Int, hi : Int) -> Int {
-        return lo + Int(arc4random_uniform(UInt32(hi - lo + 1)))
-    }
-    
-    override func update(currentTime: CFTimeInterval) {
-        //self.backgroundColor = UIColor.lightGrayColor()
-        
-    }
+    /**
+     Any code put here runs every 1/60 second
+    */
+    override func update(currentTime: CFTimeInterval) {}
 
     
 }

@@ -14,7 +14,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var lblScore: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ///check that launchscreen exists
         if let scene = LaunchScreen(fileNamed:"LaunchScreen") {
             // Configure the view.
             let skView = self.view as! SKView
@@ -26,7 +26,7 @@ class GameViewController: UIViewController {
             
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
-            
+            ///present the scene
             skView.presentScene(scene)
             
         }
