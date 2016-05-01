@@ -15,93 +15,117 @@ import SpriteKit
 import AVFoundation
 import UIKit
 
+
 class GameScene: SKScene {
+    ///score variables
     var score = 0
     var highScore = 0;
-    let scoreLabel = SKLabelNode(fontNamed:"Chalkduster")
     
-    //user defaults for score
+    ///labels
+    let scoreLabel = SKLabelNode(fontNamed:"Chalkduster")
+    var highScoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+    
+    ///phone local storage
     let userDefaults = NSUserDefaults.standardUserDefaults()
     
-    var highScoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-    var sprite = SKSpriteNode(imageNamed:"object1")
-    var timer =  NSTimer()
+    ///visual objects
+    var target = SKSpriteNode(imageNamed:"object1")
     
-    //particle
+    ///particles
     var sparkParticle = SKEmitterNode()
     
+    ///timers
+    var timer =  NSTimer()
     
-    //sounds
+    ///sounds
     var sound: AVAudioPlayer!
     
-    
+    /**
+    Configure view upon presenting it
+    */
     override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        
+        ///start timer
         startGameTimer()
         
-//        //Clear high score
-//        userDefaults.setValue(0, forKey: "highScore")
-//        userDefaults.synchronize()
+        /*
+        //Clear high score from local storage
+        userDefaults.setValue(0, forKey: "highScore")
+        userDefaults.synchronize()
+        */
         
-        //Check if highscore is on file and set it on game
+        ///Check if high score is on local storage and set it on game
         if let highScoreOnFile = userDefaults.valueForKey("highScore") {
-            // do something here when a highscore exists
+            /// do something here when a high score exists
             highScore = highScoreOnFile as! Int
         }
         
-        //score label
+        
+        ///score label properties
         scoreLabel.text = "Score: \(score)"
         scoreLabel.fontSize = 45
         scoreLabel.zPosition = 0
         scoreLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)  * 1.8))
+        ///add score label to scene
         self.addChild(scoreLabel)
         
-        //high Score Label
+        ///high Score Label properties
         highScoreLabel.text = "High Score: \(highScore)"
         highScoreLabel.fontSize = 20
         highScoreLabel.zPosition = 0
         highScoreLabel.position = CGPoint(x:150, y: 50)
+        ///add high score label to scene
         self.addChild(highScoreLabel)
 
         
-        //create sprite
-        sprite.xScale = 0.5
-        sprite.yScale = 0.5
-        sprite.name = "sprite"
-        sprite.zPosition = 1
-        self.addChild(sprite)
-        sprite.position = CGPointMake(100,100)
+        ///target sprite properties
+        target.xScale = 0.5
+        target.yScale = 0.5
+        target.name = "sprite"
+        target.zPosition = 1
+        ///add target to scene
+        self.addChild(target)
+        target.position = CGPointMake(100,100)
         
         
-        //PARTICLE
+        ///move the location of the target repeatedly
+        moveTargetOnTimer()
         
+        
+        ///particle location
         let path = NSBundle.mainBundle().pathForResource("MyParticle", ofType: "sks")
+        ///particle instantiation
         sparkParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
-        self.addChild(sparkParticle)
-        //position particle
+        ///set particle position
         sparkParticle.position = scoreLabel.position
-
-        //END PARTICLE
-        
-        
-        //timer function to move location
-        moveSpriteTimer()
+        ///add particle to scene
+        self.addChild(sparkParticle)
 
     }
     
 
-    
+    ///play sound file
     func playPewPew(){
+        ///select sound file
         sound = try? AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("pewpewpew", ofType:"wav")!))
+        ///play sound file
         sound.play()
     }
     
+    /**
+    gets background color to match score
+     
+    - Returns: a color that matches the current game score
+    */
     func getScoreColor() -> UIColor{
+        ///declare number values for each RGB
         var red:CGFloat = 0
         var green:CGFloat = 0
         var blue:CGFloat = 0
+        
+        ///get ColorStruct class to call colors
         let color = ColorStruct()
+        
+        ///check score and alter color number values accordingly
         if (score == 0){
             red = 206
             green = 206
@@ -118,82 +142,106 @@ class GameScene: SKScene {
             blue = 0
         }
         
+        ///create color using RGB color variables
         let exactColor = color.getExactColor(red, g:green, b: blue)
         
+        ///return new color
         return exactColor
     }
     
+    
+    /**
+    start countdown timer and call end of gameplay
+    */
     func startGameTimer(){
-        //setting the delay time 60secs.
+        ///setting the delay time in secs.
         let delay = 10 * Double(NSEC_PER_SEC)
+        
+        ///run timer
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         dispatch_after(time, dispatch_get_main_queue()) {
-            //call the method which have the steps after delay.
+            
+            ///call to end the game
             self.endOfGame()
         }
     }
     
+    /**
+    signal the end of game
+    */
     func endOfGame(){
-        //your code after delay takes place here...
-        scoreLabel.text = "gameover"
         
-        //return to main screen
+        ///configure transition to next scene
         let transition = SKTransition.revealWithDirection(.Down, duration: 1.0)
         
+        ///set next scene to launch screen
         let nextScene = LaunchScreen(size: scene!.size)
+        
+        ///set next scence scale mode
         nextScene.scaleMode = .AspectFill
         
+        //present next scene
         scene?.view?.presentScene(nextScene, transition: transition)
        
     }
     
+    
+    /**
+    process the actions to take after a tap is registered
+     
+    - Parameter hit: true if target hit
+    */
     func processTap(hit: Bool){
+        ///if target was hit
         if(hit){
-            
-
-            
+            ///play the particle
             sparkParticle.resetSimulation()
             
-            //increment and update score
+            ///increment score
             score += 1
             scoreLabel.text = "Score: \(score)"
             
-            //update background color
-            self.backgroundColor = getScoreColor()
             
             
-            
-            //play sound
+            ///play sound
             playPewPew()
-            
-        
-        
-
-        }else{
-            //decrement and update score
+        }
+        ///if target was NOT hit
+        else{
+            ///decrement score
             score -= 1
             scoreLabel.text = "Score: \(score)"
-            
-            //update background color
-            self.backgroundColor = getScoreColor()
+           
         }
+        ///update background color
+        self.backgroundColor = getScoreColor()
+        
+        ///update high score if old record beat
         if score > highScore{
             setNewHighScore()
         }
     }
     
-    func changeSprite(){
+    /**
+    update the target Sprite to a random texture
+    */
+    func changeTarget(){
+        ///list of available images to use as textures
         let images = ["object1","object2","object3"]
+        
+        ///select random number witin range of images array
         let randomNumber = Int(arc4random_uniform(UInt32(images.count)))
-        sprite.texture = SKTexture(imageNamed: images[randomNumber])
+        
+        ///set texture of target to random number
+        target.texture = SKTexture(imageNamed: images[randomNumber])
     }
     
-    
-    
-    func moveSpriteTimer(){
-        // Scheduling timer to Call the function **Countdown** with the interval of 1 seconds
+    /**
+    Timer to move target
+    */
+    func moveTargetOnTimer(){
         // Increasing this interval will slow down the movement of targets
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.moveToRandomPosition), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(GameScene.moveToRandomPosition), userInfo: nil, repeats: true)
     }
     
     
@@ -241,9 +289,9 @@ class GameScene: SKScene {
     }
     
     func moveToRandomPosition() {
-            changeSprite()
+            changeTarget()
             let aPosition = getRandomPosition()
-            sprite.position = aPosition
+            target.position = aPosition
     }
    
 
